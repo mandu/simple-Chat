@@ -5,7 +5,7 @@ A simple node app implemented using websockets(socket.io).
 Requirements
 --------
 * node.js
-* sqlite3 
+* sqlite3  
 Node modules  
 * socket.io
 * connect)
