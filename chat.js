@@ -1,3 +1,6 @@
+// Simple Chat app
+// chat.js
+
 var connect = require('connect'),
     server = initServer(),
     io = require('socket.io').listen(server),
