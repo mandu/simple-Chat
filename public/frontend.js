@@ -1,4 +1,3 @@
-// Mikko Haavisto, 6.11.2011
 // Simple Chat app
 // frontend.js
 window.onload = (function() {
