@@ -6,7 +6,9 @@ Requirements
 --------
 * node.js
 * sqlite3  
+
 Node modules  
+
 * socket.io
 * connect)
 * node-sqlite3
