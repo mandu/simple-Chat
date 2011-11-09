@@ -1,24 +1,26 @@
 <!DOCTYPE html>
-<html  xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml">
     <head profile="http://www.w3.org/2005/10/profile">
-        <title>Chat</title>
-       <script src="/socket.io/socket.io.js"></script>
+        <title>Simple Chat</title>
+        <script src="/socket.io/socket.io.js"></script>
         <script src="frontend.js" type="text/javascript" charset="utf-8"></script>
         <link rel="stylesheet" href="style.css" type="text/css" />
         <link href='http://fonts.googleapis.com/css?family=Anonymous+Pro' rel='stylesheet' type='text/css' />
     </head>
     
     <body>
+    
     <div class="wrapper border">
         <div class="container">
             <div class="messages border">
                 <ul id="messages"></ul>
             </div>
-            <input type="text" class= "input border" id="input" placeholder="Type message ..." />
+            <input type="text" class="input border" id="input" placeholder="Type message ..." />
     
             <input type="text" class="username border" id="username" placeholder="Username" />
             <div class="send border" id="send"><span>Send</span></div>
         </div>
-    </div>         
+    </div>
+    
     </body>       
 </html>

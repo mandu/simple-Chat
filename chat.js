@@ -22,7 +22,7 @@ io.sockets.on('connection', function(socket) {
     
     sendNewMessage = (function () {
         database.queryLatest(function(err, rows) {
-            // Send updateMessages request to client
+            // Send updateMessages request to every client, only latest message
             io.sockets.emit('updateMessages', { rows: rows } );
         });
     }),
