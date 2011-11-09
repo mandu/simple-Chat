@@ -10,6 +10,6 @@ Requirements
 Node modules  
 
 * socket.io
-* connect)
+* connect
 * node-sqlite3
  
