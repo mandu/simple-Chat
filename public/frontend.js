@@ -10,18 +10,33 @@ window.onload = (function() {
             // Open websocket connection
             var socket = io.connect(),
             
+            
                 updateMessages = function() {
                     var ul = $('messages'),
+                        area = $('message-area'),
+                        
+                        autoScroll = function(current, max) {                            
+                            if (current === max) {
+                                // Scrollbar is moved automatically
+                                // only when it is in the bottom.
+                                area.scrollTop = area.scrollHeight - area.clientHeight;
+                            }
+                        },
                         // Insert passed message to messages <ul>.
                         // Update only new messages.
                         add = function(m) {
-                            var li = null;
+                            var li = null,
+                                currentScroll = area.scrollTop,
+                                maxScroll = area.scrollHeight - area.clientHeight;
+                                
                             // If not exist, construct message <li>.
-                            if (!$('message-' + m.id)) {
+                            if (!$('message-' + m.id)) {                                                    
                                 li = document.createElement('li');
                                 li.id = 'message-' + m.id;
                                 li.innerHTML = '[' + m.time + '][' + m.username + ']' + ' > ' + m.message;
                                 ul.appendChild(li);
+                                                                
+                                autoScroll(currentScroll, maxScroll);
                             }
                         };
                     // Return function, so only last part of this function is
@@ -34,19 +49,41 @@ window.onload = (function() {
                 }(),
                 
                 sendMessage = (function() {
-                    var getUsername = (function() {
-                        var name = $('username').value;
-                        // some validation here ...
-                        return name;
-                    }),
-                        getMessage = (function() {
-                            var message = $('input').value;
-                            // some validation here ...
-                            return message;
+                    var valid = true,
+                    
+                        validation = (function(el) {
+                            if (!el.value) {
+                                var classState = el.className;
+                                valid = false;
+                                el.className += ' notvalid';
+                                // revert class state
+                                setTimeout(function() {
+                                    el.className = classState;
+                                }, 700);
+                            }
                         }),
+                        
+                        getUsername = (function() {
+                        var name = $('username');
+                        validation(name);                        
+                        return name.value;
+                        }),
+                    
+                        getMessage = (function() {
+                            var message = $('input');
+                            validation(message);                            
+                            return message.value;
+                        }),
+                        
                         getTime = (function() {
-                            var time = new Date();
-                            return time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
+                            var time = new Date(),
+                                fixedTime = [time.getHours(), time.getMinutes(), time.getSeconds()];
+                            // Fix one number presentation    
+                            fixedTime.forEach(function(value, index, array) {
+                                array[index] = (value.toString().length === 1) ? '0' + value.toString() : value;
+                            });
+
+                            return fixedTime[0] + ':' + fixedTime[1] + ':' + fixedTime[2];
                         }),
                         data = {
                             $username: getUsername(),
@@ -54,11 +91,15 @@ window.onload = (function() {
                             $time: getTime()
                         };
                     // Send message to server
-                    socket.emit('insertMessage', data);
-                    $('input').value = "";
+                    if(valid) {
+                        socket.emit('insertMessage', data);
+                        $('input').value = "";
+                    }
                 });
                 
             (function init() {
+                // Focus to message field
+                $('input').focus();
                 // Request messages on startup         
                 socket.emit('requestMessages', updateMessages);
                 // Listen updateMessages from server

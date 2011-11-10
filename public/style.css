@@ -12,22 +12,29 @@ body {
     font-family: 'Anonymous Pro', Arial, sans-serif;
     font-size: 14px;
     line-height: 14px;
+    
+    background: #EEEEEE;
 }
 input[type="text"] {
      padding: 0 10px;     
      -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
      -moz-box-sizing: border-box;    /* Firefox, other Gecko */
      box-sizing: border-box;
-}
-input[type="text"]:focus {
-    background: #ccc;
+     
+     background: #FFFFFF;
     
     -webkit-transition: background-color 0.5s linear;
     -moz-transition: background-color 0.5s linear;
     -o-transition: background-color 0.5s linear;
     transition: background-color 0.5s linear;
 }
+input[type="text"]:focus {
+    background: #C8CFB4;
+}
 
+input[type="text"].notvalid {
+    background: #CE0000;
+}
 
 ul {
     margin: 10px;
@@ -53,18 +60,22 @@ li {
 .wrapper {
     margin: 50px auto;
     width: 800px;
-    height: 600px;    
+    height: 620px;
+    
+    background: #CCCCCC;
 }
 
 .container {
     margin: 20px auto;
     width: 760px;
-    height: 600px;
+    height: 600px;        
 }
 .messages {
     width: 100%;
-    height: 440px;
+    height: 460px;
     overflow-y: scroll;
+    
+    background: #FFFFFF;
 }
 
 .input {
@@ -79,6 +90,8 @@ li {
     float: right;
     width: 100px;
     height: 40px;
+    
+    background: #FFFFFF;
 }
 
 .send span {

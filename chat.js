@@ -54,19 +54,20 @@ var database = (function() {
         }),
         
         queryAll = (function (cb) {
-                db.all("SELECT * FROM messages", cb);
+            // Limit messages to max 100 latest
+            db.all("SELECT * FROM messages ORDER BY id DESC LIMIT 100", cb);
         }),
         
         queryLatest = (function (cb) {
-                db.all("SELECT * FROM messages ORDER BY id DESC LIMIT 1", cb);
+            db.all("SELECT * FROM messages ORDER BY id DESC LIMIT 1", cb);
         }),
         
         insert = (function (msg, cb) {
-                var stmt = db.prepare("INSERT INTO messages " +
-                            "(username, message, time)" +
-                            "VALUES ($username, $message, $time)");
-                // Bind message from client
-                stmt.run(msg, cb);
+            var stmt = db.prepare("INSERT INTO messages " +
+                        "(username, message, time)" +
+                        "VALUES ($username, $message, $time)");
+            // Bind message from client
+            stmt.run(msg, cb);
         });
     
     (function init() {
